@@ -1,0 +1,69 @@
+@startuml
+' Titre du diagramme
+title Diagramme de Classes - Système de Gestion des Événements
+
+' Définition des classes principales
+class Utilisateur {
+    - id: int
+    - nom: string
+    - email: string
+    - motDePasse: string
+    + s'inscrire(): void
+    + seConnecter(): bool
+}
+
+class Organisateur {
+    - id: int
+    - entreprise: string
+    + creerEvenement(): Evenement
+    + modifierEvenement(): void
+}
+
+class Participant {
+    - id: int
+    + s'inscrireEvenement(e: Evenement): void
+    + annulerInscription(e: Evenement): void
+}
+
+class Evenement {
+    - id: int
+    - titre: string
+    - description: string
+    - dateDebut: Date
+    - dateFin: Date
+    - lieu: Lieu
+    + ajouterParticipant(p: Participant): void
+    + supprimerParticipant(p: Participant): void
+}
+
+class Lieu {
+    - id: int
+    - nom: string
+    - adresse: string
+    - capacite: int
+}
+
+class Inscription {
+    - id: int
+    - dateInscription: Date
+    - statut: string
+}
+
+class Notification {
+    - id: int
+    - message: string
+    - dateEnvoi: Date
+    + envoyer(): void
+}
+
+' Relations
+Utilisateur <|-- Organisateur
+Utilisateur <|-- Participant
+
+Evenement "1" -- "1" Lieu : seDérouleDans
+Evenement "1" -- "*" Inscription : contient
+Participant "1" -- "*" Inscription : a
+Evenement "1" -- "*" Notification : génère
+Participant "1" -- "*" Notification : reçoit
+
+@enduml

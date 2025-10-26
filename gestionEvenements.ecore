@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+                xmlns:xmi="http://www.omg.org/XMI"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+                name="gestionEvenements"
+                nsURI="http://www.example.com/gestionEvenements"
+                nsPrefix="ge">
+
+    <!-- Classe Utilisateur -->
+    <eClassifiers xsi:type="ecore:EClass" name="Utilisateur" abstract="true">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="motDePasse" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    </eClassifiers>
+
+    <!-- Classe Organisateur -->
+    <eClassifiers xsi:type="ecore:EClass" name="Organisateur" eSuperTypes="#//Utilisateur">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="entreprise" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    </eClassifiers>
+
+    <!-- Classe Participant -->
+    <eClassifiers xsi:type="ecore:EClass" name="Participant" eSuperTypes="#//Utilisateur"/>
+
+    <!-- Classe Evenement -->
+    <eClassifiers xsi:type="ecore:EClass" name="Evenement">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="titre" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateDebut" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Date"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateFin" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Date"/>
+    </eClassifiers>
+
+    <!-- Classe Lieu -->
+    <eClassifiers xsi:type="ecore:EClass" name="Lieu">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="adresse" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacite" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+    </eClassifiers>
+
+    <!-- Classe Inscription -->
+    <eClassifiers xsi:type="ecore:EClass" name="Inscription">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateInscription" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Date"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="statut" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    </eClassifiers>
+
+    <!-- Classe Notification -->
+    <eClassifiers xsi:type="ecore:EClass" name="Notification">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateEnvoi" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Date"/>
+    </eClassifiers>
+
+    <!-- Associations -->
+    <eClassifiers xsi:type="ecore:EReference" name="participants" upperBound="-1" eType="#//Participant" containment="true" eOpposite="#//Inscription.evenement"/>
+    <eClassifiers xsi:type="ecore:EReference" name="inscriptions" upperBound="-1" eType="#//Inscription" containment="true" eOpposite="#//Participant"/>
+
+</ecore:EPackage>
