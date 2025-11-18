@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/EVMS/src-gen" creationIcons="false" editDirectory="/EVMS.edit/src-gen"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/EVMS/src-gen" creationIcons="false" editDirectory="/EVMS.edit/src-gen"
     editorDirectory="/EVMS.editor/src-gen" modelPluginID="EVMS" modelName="EVMS" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="21.0"
     copyrightFields="false" operationReflection="true" importOrganizing="true">
   <foreignModel>eVMS.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
-  <genPackages prefix="EVMS" disposableProviderFactory="true" ecorePackage="eVMS.ecore#/"/>
+  <genPackages prefix="EVMS" disposableProviderFactory="true" ecorePackage="eVMS.ecore#/">
+    <genClasses ecoreClass="eVMS.ecore#//Utilisateur">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Utilisateur/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Utilisateur/nom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Utilisateur/email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Utilisateur/motDePasse"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Utilisateur/role"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Utilisateur/inscriptions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Utilisateur/notificationsRecues"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Utilisateur/evenementsCrees"/>
+    </genClasses>
+    <genClasses ecoreClass="eVMS.ecore#//Lieu">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Lieu/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Lieu/nom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Lieu/adresse"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Lieu/capacite"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Lieu/evenements"/>
+    </genClasses>
+    <genClasses ecoreClass="eVMS.ecore#//Evenement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Evenement/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Evenement/titre"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Evenement/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Evenement/dateDebut"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Evenement/dateFin"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Evenement/lieu"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Evenement/createur"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Evenement/inscriptions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Evenement/notifications"/>
+    </genClasses>
+    <genClasses ecoreClass="eVMS.ecore#//Inscription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Inscription/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Inscription/dateInscription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Inscription/statut"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Inscription/utilisateur"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Inscription/evenement"/>
+    </genClasses>
+    <genClasses ecoreClass="eVMS.ecore#//Notification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Notification/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Notification/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eVMS.ecore#//Notification/dateEnvoi"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Notification/utilisateur"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eVMS.ecore#//Notification/evenement"/>
+    </genClasses>
+  </genPackages>
 </genmodel:GenModel>

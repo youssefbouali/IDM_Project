@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Usingmodel
+Bundle-SymbolicName: EVMS.usingmodel
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: EVMS;bundle-version="0.1.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.38.0"
+Automatic-Module-Name: EVMS.usingmodel
+Bundle-RequiredExecutionEnvironment: JavaSE-21

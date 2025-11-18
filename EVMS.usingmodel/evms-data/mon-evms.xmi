@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:eVMS="http://www.example.org/eVMS">
+  <eVMS:Utilisateur id="1" nom="Jean Dupont" email="jean.dupont@example.com" motDePasse="secret123" role="organisateur" evenementsCrees="/3"/>
+  <eVMS:Utilisateur id="2" nom="Marie Curie" email="marie@example.com" motDePasse="marie2025" role="participant"/>
+  <eVMS:Lieu id="1" nom="Grand Amphith&#xe9;&#xe2;tre" adresse="10 Rue de l&#x2019;Universit&#xe9;, Paris" capacite="200" evenements="/3"/>
+  <eVMS:Evenement id="1" titre="Atelier EMF &amp; Xtext" description="D&#xe9;couverte du framework Eclipse Modeling" dateDebut="2025-11-18T23:38:29.865+0100" dateFin="2025-11-19T03:38:29.865+0100" lieu="/2" createur="/0"/>
+</xmi:XMI>

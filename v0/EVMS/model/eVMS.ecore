@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    name="eVMS"
+    nsURI="http://www.example.org/eVMS"
+    nsPrefix="eVMS">
+
+  <!-- ==================== Utilisateur ==================== -->
+  <eClassifiers xsi:type="ecore:EClass" name="Utilisateur">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="motDePasse" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    
+    <!-- 1 utilisateur → plusieurs inscriptions -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inscriptions" upperBound="-1" eType="#//Inscription"
+                        containment="false" eOpposite="#//Inscription/utilisateur"/>
+    
+    <!-- 1 utilisateur → plusieurs notifications reçues -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notificationsRecues" upperBound="-1" eType="#//Notification"
+                        containment="false" eOpposite="#//Notification/utilisateur"/>
+    
+    <!-- 1 utilisateur (organisateur) → plusieurs événements créés -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evenementsCrees" upperBound="-1" eType="#//Evenement"
+                        containment="false" eOpposite="#//Evenement/createur"/>
+  </eClassifiers>
+
+  <!-- ==================== Lieu ==================== -->
+  <eClassifiers xsi:type="ecore:EClass" name="Lieu">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="adresse" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    
+    <!-- Lieu 1 → * événements -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evenements" upperBound="-1" eType="#//Evenement"
+                        containment="false" eOpposite="#//Evenement/lieu"/>
+  </eClassifiers>
+
+  <!-- ==================== Evenement ==================== -->
+  <eClassifiers xsi:type="ecore:EClass" name="Evenement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="titre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateDebut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateFin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    
+    <!-- Lieu (obligatoire) -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lieu" lowerBound="1" upperBound="1"
+                        eType="#//Lieu" containment="false" eOpposite="#//Lieu/evenements"/>
+    
+    <!-- Créateur (obligatoire) -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="createur" lowerBound="1" upperBound="1"
+                        eType="#//Utilisateur" containment="false" eOpposite="#//Utilisateur/evenementsCrees"/>
+    
+    <!-- Inscriptions -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inscriptions" upperBound="-1" eType="#//Inscription"
+                        containment="false" eOpposite="#//Inscription/evenement"/>
+    
+    <!-- Notifications liées à cet événement -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notifications" upperBound="-1" eType="#//Notification"
+                        containment="false" eOpposite="#//Notification/evenement"/>
+  </eClassifiers>
+
+  <!-- ==================== Inscription ==================== -->
+  <eClassifiers xsi:type="ecore:EClass" name="Inscription">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateInscription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="statut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    
+    <!-- Utilisateur (obligatoire) -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="utilisateur" lowerBound="1" upperBound="1"
+                        eType="#//Utilisateur" containment="false" eOpposite="#//Utilisateur/inscriptions"/>
+    
+    <!-- Événement (obligatoire) -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evenement" lowerBound="1" upperBound="1"
+                        eType="#//Evenement" containment="false" eOpposite="#//Evenement/inscriptions"/>
+  </eClassifiers>
+
+  <!-- ==================== Notification ==================== -->
+  <eClassifiers xsi:type="ecore:EClass" name="Notification">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateEnvoi" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    
+    <!-- Destinataire -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="utilisateur" lowerBound="1" upperBound="1"
+                        eType="#//Utilisateur" containment="false" eOpposite="#//Utilisateur/notificationsRecues"/>
+    
+    <!-- Événement concerné -->
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evenement" lowerBound="1" upperBound="1"
+                        eType="#//Evenement" containment="false" eOpposite="#//Evenement/notifications"/>
+  </eClassifiers>
+
+</ecore:EPackage>
