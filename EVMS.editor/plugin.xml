@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated eVMS -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eVMS.presentation.EVMSModelWizardID"
+            name="%_UI_EVMSModelWizard_label"
+            class="eVMS.presentation.EVMSModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/EVMSModelFile.gif">
+         <description>%_UI_EVMSModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated eVMS -->
+      <editor
+            id="eVMS.presentation.EVMSEditorID"
+            name="%_UI_EVMSEditor_label"
+            icon="icons/full/obj16/EVMSModelFile.gif"
+            extensions="evms"
+            class="eVMS.presentation.EVMSEditor"
+            contributorClass="eVMS.presentation.EVMSActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

@@ -1,69 +1,63 @@
 @startuml
-' Titre du diagramme
-title Diagramme de Classes - Système de Gestion des Événements
+title Diagramme de Classes - Système de Gestion des Événements (avec clés, sans relation directe participe)
 
-' Définition des classes principales
+' ----- Classe Utilisateur -----
 class Utilisateur {
-    - id: int
+    + id: int <<PK>>
     - nom: string
     - email: string
     - motDePasse: string
-    + s'inscrire(): void
-    + seConnecter(): bool
+    - role: string <<Organisateur | Participant>>
 }
 
-class Organisateur {
-    - id: int
-    - entreprise: string
-    + creerEvenement(): Evenement
-    + modifierEvenement(): void
-}
-
-class Participant {
-    - id: int
-    + s'inscrireEvenement(e: Evenement): void
-    + annulerInscription(e: Evenement): void
-}
-
+' ----- Classe Evenement -----
 class Evenement {
-    - id: int
+    + id: int <<PK>>
     - titre: string
     - description: string
     - dateDebut: Date
     - dateFin: Date
-    - lieu: Lieu
-    + ajouterParticipant(p: Participant): void
-    + supprimerParticipant(p: Participant): void
+    - idLieu: int <<FK>>
+    - idCreateur: int <<FK>>  ' FK vers Utilisateur
 }
 
 class Lieu {
-    - id: int
+    + id: int <<PK>>
     - nom: string
     - adresse: string
     - capacite: int
 }
 
 class Inscription {
-    - id: int
+    + id: int <<PK>>
     - dateInscription: Date
     - statut: string
+    - idUtilisateur: int <<FK>>
+    - idEvenement: int <<FK>>
 }
 
 class Notification {
-    - id: int
+    + id: int <<PK>>
     - message: string
     - dateEnvoi: Date
-    + envoyer(): void
+    - idEvenement: int <<FK>>
+    - idUtilisateur: int <<FK>>
 }
 
-' Relations
-Utilisateur <|-- Organisateur
-Utilisateur <|-- Participant
+' ----- Relations -----
 
-Evenement "1" -- "1" Lieu : seDérouleDans
-Evenement "1" -- "*" Inscription : contient
-Participant "1" -- "*" Inscription : a
-Evenement "1" -- "*" Notification : génère
-Participant "1" -- "*" Notification : reçoit
+' Création d'événement (Organisateur)
+Utilisateur "1" --> "0..*" Evenement : crée >
+
+' Un événement se déroule dans un seul lieu
+Evenement "1" --> "1" Lieu : seDérouleDans >
+
+' Liason correcte pour participation
+Utilisateur "1" --> "0..*" Inscription : effectue >
+Evenement "1" --> "0..*" Inscription : contient >
+
+' Notifications
+Evenement "1" --> "0..*" Notification : génère >
+Utilisateur "1" --> "0..*" Notification : reçoit >
 
 @enduml
