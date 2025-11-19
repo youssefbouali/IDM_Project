@@ -1,0 +1,38 @@
+lieu amphi {
+    nom "Amphithéâtre Central"
+    capacite 400
+}
+
+utilisateur ali {
+    nom "Ali Ben"
+    email "ali@example.com"
+    role organisateur
+}
+
+utilisateur sara {
+    nom "Sara Ahmed"
+    email "sara@example.com"
+    role participant
+}
+
+evenement workshop {
+    titre "Workshop Xtext & EMF"
+    description "Workshop Xtext & EMF"
+    debut '2025-12-10T09:00'
+    fin '2025-12-10T17:00'
+    lieu amphi
+    organisateur ali
+    inscriptions {
+        inscription {
+            utilisateur sara
+            evenement workshop
+        }
+    }
+    notifications {
+        notification {
+            message "Registration for the workshop has been completed."
+            destinataire sara
+            evenement workshop
+        }
+    }
+}

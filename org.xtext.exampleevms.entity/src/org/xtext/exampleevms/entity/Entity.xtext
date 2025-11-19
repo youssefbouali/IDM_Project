@@ -1,0 +1,60 @@
+grammar org.example.evms.Evms with org.eclipse.xtext.common.Terminals
+
+generate evms "http://www.example.org/eVMS"
+
+Model:
+    (elements+=RootElement)*;
+
+RootElement:
+      Evenement
+    | Lieu
+    | Utilisateur
+    | Inscription
+    | Notification;
+
+terminal DATE : '\'' INT '-' INT '-' INT ('T' INT ':' INT (':' INT)?)? '\'';
+
+// ====================== Evenement ======================
+Evenement:
+    'evenement' name=ID '{'
+        ('titre' titre=STRING)?
+        ('description' description=STRING)?
+        ('debut' dateDebut=DATE)?
+        ('fin' dateFin=DATE)?
+        'lieu' lieu=[Lieu]
+        'organisateur' createur=[Utilisateur]
+        ('inscriptions' '{' inscriptions+=Inscription* '}')?
+        ('notifications' '{' notifications+=Notification* '}')?
+    '}';
+
+// ====================== Lieu ======================
+Lieu:
+    'lieu' name=ID '{'
+        'nom' nom=STRING
+        ('adresse' adresse=STRING)?
+        ('capacite' capacite=INT)?
+    '}';
+
+// ====================== Utilisateur ======================
+Utilisateur:
+    'utilisateur' name=ID '{'
+        'nom' nom=STRING
+        'email' email=STRING
+        ('role' role=('organisateur'|'participant'|'admin'))?
+        ('motDePasse' motDePasse=STRING)?
+    '}';
+
+// ====================== Inscription ======================
+Inscription:
+    'inscription' '{'
+        'utilisateur' utilisateur=[Utilisateur]
+        'evenement' evenement=[Evenement]
+    '}';
+
+// ====================== Notification ======================
+Notification:
+    'notification' '{'
+        'message' message=STRING
+        'destinataire' destinataire=[Utilisateur]
+        'evenement' evenement=[Evenement]
+    '}';
